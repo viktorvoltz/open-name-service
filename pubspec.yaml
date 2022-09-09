@@ -30,6 +30,10 @@ dependencies:
   flutter:
     sdk: flutter
   connectivity_plus: ^2.3.6+1
+  web3dart: ^2.3.5
+  http: ^0.13.3
+  web_socket_channel: ^2.1.0
+  path: ^1.8.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -59,7 +63,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - assets/Domains.json
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

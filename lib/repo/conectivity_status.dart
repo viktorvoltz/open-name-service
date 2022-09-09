@@ -5,6 +5,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
 
 abstract class NetworkConnectivity{
+  void initialise();
   void _checkStatus(ConnectivityResult result);
   void disposeStream();
 }
@@ -17,6 +18,7 @@ class NetworkConnectivityImpl extends NetworkConnectivity{
   final _controller = StreamController.broadcast();
   Stream get myStream => _controller.stream;
 
+  @override
   void initialise() async {
     ConnectivityResult result = await _NetworkConnectivityImpl.checkConnectivity();
     _checkStatus(result);
@@ -30,8 +32,10 @@ class NetworkConnectivityImpl extends NetworkConnectivity{
   void _checkStatus(ConnectivityResult result) async {
     bool isOnline = false;
     try {
-      final result = await InternetAddress.lookup('https://google.com');
+      final result = await InternetAddress.lookup('google.com');
+      print(result);
       isOnline = result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+      print(isOnline);
     } on SocketException catch (_) {
       isOnline = false;
     }

@@ -16,7 +16,7 @@ class _ContractPageState extends State<ContractPage> {
   @override
   void initState() {
     DomainContract domainContract = DomainContract();
-    domainContract.getRecord("victor");
+    domainContract.registerDomain("nonso vic");
     super.initState();
   }
 

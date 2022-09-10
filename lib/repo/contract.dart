@@ -25,18 +25,14 @@ class DomainContract {
   }
 
   Future<DeployedContract> deployedContract() async {
-    //final File abiFile = File(join(dirname(Platform.script.path), 'assets/Domains.json'));
-    //print(abiFile.toString());
-    String contractAbi = await rootBundle.loadString("assets/Domains.json");
 
+    String contractAbi = await rootBundle.loadString("assets/Domains.json");
     final jsonCode = jsonDecode(contractAbi);
     final abiCode = jsonEncode(jsonCode["abi"]);
 
-    /// contract address
+    /// deployed contract address
     _contractAddress =
         EthereumAddress.fromHex("0x8c328B7f4856438FbeAa59f9e28F6fDd98B4588d");
-
-    //final abiCode = await abiFile.readAsString();
 
     final contract = DeployedContract(
         ContractAbi.fromJson(abiCode, "Domains"), _contractAddress!);
@@ -61,7 +57,7 @@ class DomainContract {
     DeployedContract contract = await deployedContract();
 
     final contractFunction = contract.function(functionName);
-    final result = _client.sendTransaction(
+    final result = await _client.sendTransaction(
       credential,
       Transaction.callContract(
           contract: contract,
@@ -74,7 +70,11 @@ class DomainContract {
               : null),
       chainId: 80001,
     );
-    print(result);
+
+    TransactionInformation txHash = await _client.getTransactionByHash(result);
+    print(txHash.toString());
+    TransactionReceipt? txReciept = await _client.getTransactionReceipt(result);
+    print(txReciept.toString());
     return result;
   }
 

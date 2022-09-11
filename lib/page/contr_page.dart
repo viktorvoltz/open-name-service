@@ -11,7 +11,6 @@ class ContractPage extends StatefulWidget {
 
 class _ContractPageState extends State<ContractPage> {
 
-  
 
   @override
   void initState() {

@@ -14,16 +14,15 @@ class NetworkConnectivityImpl extends NetworkConnectivity{
   NetworkConnectivityImpl._();
   static final _instance = NetworkConnectivityImpl._();
   static NetworkConnectivityImpl get instance => _instance;
-  final _NetworkConnectivityImpl = Connectivity();
+  final _networkConnectivityImpl = Connectivity();
   final _controller = StreamController.broadcast();
   Stream get myStream => _controller.stream;
 
   @override
   void initialise() async {
-    ConnectivityResult result = await _NetworkConnectivityImpl.checkConnectivity();
+    ConnectivityResult result = await _networkConnectivityImpl.checkConnectivity();
     _checkStatus(result);
-    _NetworkConnectivityImpl.onConnectivityChanged.listen((result) {
-      print(result);
+    _networkConnectivityImpl.onConnectivityChanged.listen((result) {
       _checkStatus(result);
     });
   }
@@ -33,9 +32,7 @@ class NetworkConnectivityImpl extends NetworkConnectivity{
     bool isOnline = false;
     try {
       final result = await InternetAddress.lookup('google.com');
-      print(result);
       isOnline = result.isNotEmpty && result[0].rawAddress.isNotEmpty;
-      print(isOnline);
     } on SocketException catch (_) {
       isOnline = false;
     }

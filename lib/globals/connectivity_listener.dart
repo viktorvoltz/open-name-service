@@ -15,7 +15,6 @@ void connectivityListener(){
   listener.myStream.listen((event) {
     isOnline = false;
     _source = event;
-    print('source $_source');
     
     switch (_source.keys.toList()[0]) {
       case ConnectivityResult.mobile:

@@ -1,9 +1,9 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:webthreeauth/globals/connectivity_listener.dart';
 import 'package:webthreeauth/service_locator.dart';
 
 import '../repo/conectivity_status.dart';
+import 'contr_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,6 +28,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const ContractPage();
   }
 }

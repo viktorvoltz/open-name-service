@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:webthreeauth/service_locator.dart';
 
 import '../repo/contract.dart';
+import '../repo/wallet_connect_service.dart';
+import '../repo/wallet_connect_service.dart';
 
 class ContractPage extends StatefulWidget {
   const ContractPage({ Key? key }) : super(key: key);
@@ -15,7 +18,8 @@ class _ContractPageState extends State<ContractPage> {
   @override
   void initState() {
     DomainContract domainContract = DomainContract();
-    domainContract.registerDomain("nonso vic");
+    //domainContract.registerDomain("nonso vic");
+    locator.get<WalletConnectService>().connect();
     super.initState();
   }
 
@@ -24,6 +28,7 @@ class _ContractPageState extends State<ContractPage> {
     DomainContract().dispose();
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {

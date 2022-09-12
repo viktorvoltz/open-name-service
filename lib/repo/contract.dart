@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/services.dart';
 
@@ -56,7 +57,8 @@ class DomainContract {
       String functionName, bool isValued, List<dynamic> args) async {
     EthPrivateKey credential = EthPrivateKey.fromHex(privateKey);
     DeployedContract contract = await deployedContract();
-
+   
+    
     final contractFunction = contract.function(functionName);
     try {
       final result = await _client.sendTransaction(

@@ -10,6 +10,7 @@ import 'package:web_socket_channel/io.dart';
 import 'package:webthreeauth/exceptions/general_exception.dart';
 
 import '../constants/constants.dart';
+import 'ethereum_credentials.dart';
 
 class DomainContract {
   static const String _rpcUrl =
@@ -53,36 +54,44 @@ class DomainContract {
     return result;
   }
 
+  Transaction _callTransac({DeployedContract? contract, 
+  EthereumAddress? from, ContractFunction? function, List<dynamic>? 
+  parameters, EtherAmount? value}){
+    final tx = Transaction.callContract(contract: contract!, function: function!, parameters: parameters!, value: value, from: from);
+    WalletConnectEthereumCredentials.ethCredInstance.sendTransaction(tx);
+    return tx;
+  }
+
   Future<String> _sendTransaction(
       String functionName, bool isValued, List<dynamic> args) async {
     EthPrivateKey credential = EthPrivateKey.fromHex(privateKey);
     DeployedContract contract = await deployedContract();
-   
-    
+
     final contractFunction = contract.function(functionName);
     try {
       final result = await _client.sendTransaction(
         credential,
-        Transaction.callContract(
-            contract: contract,
-            from: await credential.extractAddress(),
-            function: contractFunction,
-            parameters: args,
-            value: isValued
-                ? EtherAmount.fromUnitAndValue(
-                    EtherUnit.wei, '100000000000000000')
-                : null),
+        _callTransac(
+          contract: contract,
+          from: await credential.extractAddress(),
+          function: contractFunction,
+          parameters: args,
+          value: isValued
+              ? EtherAmount.fromUnitAndValue(
+                  EtherUnit.wei, '100000000000000000')
+              : null,
+        ),
         chainId: 80001,
       );
-      TransactionInformation txHash =
+      /*TransactionInformation txHash =
           await _client.getTransactionByHash(result);
       print(txHash.toString());
       TransactionReceipt? txReciept =
           await _client.getTransactionReceipt(result);
-      print(txReciept.toString());
+      print(txReciept.toString());*/
       return result;
     } on RPCError {
-        RRPCError("RPCError:: registered name");    
+      RRPCError("RPCError:: registered name");
       return '';
     }
   }

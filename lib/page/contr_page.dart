@@ -17,10 +17,14 @@ class _ContractPageState extends State<ContractPage> {
 
   @override
   void initState() {
-    DomainContract domainContract = DomainContract();
-    //domainContract.registerDomain("nonso vic");
-    locator.get<WalletConnectService>().connect();
+    kickUp();
     super.initState();
+  }
+
+  void kickUp() async{
+    DomainContract domainContract = DomainContract();
+    await locator.get<WalletConnectService>().connect();
+    await domainContract.registerDomain("victor-XX345");
   }
 
   @override

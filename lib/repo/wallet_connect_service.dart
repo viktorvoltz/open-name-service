@@ -1,6 +1,8 @@
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:walletconnect_dart/walletconnect_dart.dart';
 
+import 'ethereum_credentials.dart';
+
 class WalletConnectService {
   final connector = WalletConnect(
     bridge: 'https://bridge.walletconnect.org',
@@ -47,13 +49,14 @@ class WalletConnectService {
     });
   }
 
-  void connect() async {
+  Future<void> connect() async {
     if (!connector.connected) {
       sessionStatus = await connector.createSession(
           chainId: 80001, onDisplayUri: (uri) => launchUrlString(uri));
     } else {
       connector.reconnect();
     }
+    walletProvider();
   }
 
   String getAccount(){
@@ -61,7 +64,7 @@ class WalletConnectService {
   }
 
   void walletProvider(){
-    EthereumWalletConnectProvider provider =
-        EthereumWalletConnectProvider(connector);
+    EthereumWalletConnectProvider provider = EthereumWalletConnectProvider(connector);
+    WalletConnectEthereumCredentials(provider: provider);
   }
 }

@@ -20,8 +20,7 @@ class NetworkConnectivityImpl extends NetworkConnectivity{
 
   @override
   void initialise() async {
-    ConnectivityResult result = await _networkConnectivityImpl.checkConnectivity();
-    _checkStatus(result);
+    await _networkConnectivityImpl.checkConnectivity();
     _networkConnectivityImpl.onConnectivityChanged.listen((result) {
       _checkStatus(result);
     });

@@ -14,17 +14,9 @@ class ContractPage extends StatefulWidget {
 
 class _ContractPageState extends State<ContractPage> {
 
-  late DomainContract domainContract;
-
-  @override
-  void initState() {
-    domainContract = DomainContract();
-    super.initState();
-  }
-
   @override
   void dispose() {
-    DomainContract().dispose();
+    locator.get<DomainContract>().dispose();
     super.dispose();
   }
 
@@ -48,7 +40,7 @@ class _ContractPageState extends State<ContractPage> {
                 color: Colors.green,
                 text: "register domain name",
                 onPressed: () async{
-                  await domainContract.registerDomain("victor-XX345");
+                  await locator.get<DomainContract>().registerDomain("victor-XX345");
               })
             ]
           ),

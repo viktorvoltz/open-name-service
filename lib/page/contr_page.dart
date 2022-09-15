@@ -14,6 +14,8 @@ class ContractPage extends StatefulWidget {
 
 class _ContractPageState extends State<ContractPage> {
 
+  String account = 'xxxx';
+
   @override
   void dispose() {
     locator.get<DomainContract>().dispose();
@@ -29,11 +31,15 @@ class _ContractPageState extends State<ContractPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Text(account),
+              const SizedBox(height: 20),
               CustomButton(
                 color: Colors.green,
                 text: "Connect Wallet",
                 onPressed: () async {
                   await locator.get<WalletConnectService>().connect();
+                  account = locator.get<WalletConnectService>().getAccount();
+                  setState(() {});
               }),
               const SizedBox(height: 30,),
               CustomButton(

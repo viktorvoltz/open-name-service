@@ -14,7 +14,7 @@ class ContractPage extends StatefulWidget {
 
 class _ContractPageState extends State<ContractPage> {
 
-  String account = 'xxxx';
+  String account = '';
 
   @override
   void dispose() {

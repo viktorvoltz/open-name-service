@@ -1,14 +1,12 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/services.dart';
 
 import 'package:http/http.dart';
-import 'package:web3dart/json_rpc.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:webthreeauth/exceptions/general_exception.dart';
 
+import '../exceptions/rpc_response.dart';
 import '../constants/constants.dart';
 import 'ethereum_credentials.dart';
 
@@ -62,7 +60,7 @@ class DomainContract {
     return tx;
   }
 
-  Future<String> _sendTransaction(
+  Future<String?> _sendTransaction(
       String functionName, bool isValued, List<dynamic> args) async {
     EthPrivateKey credential = EthPrivateKey.fromHex(privateKey);
     DeployedContract contract = await deployedContract();
@@ -90,9 +88,9 @@ class DomainContract {
           await _client.getTransactionReceipt(result);
       print(txReciept.toString());*/
       return result;
-    } on RPCError {
-      RRPCError("RPCError:: registered name");
-      return '';
+    } catch (e) {
+      RPCResponse<String>(null, error: e.toString());
+      return null;
     }
   }
 

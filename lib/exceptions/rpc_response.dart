@@ -8,13 +8,10 @@ class RPCResponse<T> {
   T? data;
   String? error;
 
-  RPCResponse(this.data, {this.error}) : succeed = error == null;
-
-  verify() {
+  RPCResponse(this.data, {this.error}) : succeed = error == null{
     if (!succeed){
     final SnackBar snackBar = SnackBar(content: Text(error!));
     snackbarKey.currentState?.showSnackBar(snackBar);
     }
-    return succeed;
   }
 }

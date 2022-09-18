@@ -42,14 +42,18 @@ class DomainContract {
   }
 
   /// query contract for information like [balance] and [record].
-  Future<List<dynamic>> _queryContract(
+  Future<List<dynamic>?> _queryContract(
       String functionName, List<dynamic> args) async {
     final contract = await deployedContract();
     final contractFunction = contract.function(functionName);
+    try{
     final result = await _client.call(
         contract: contract, function: contractFunction, params: args);
-    print(result);
-    return result;
+        return result;
+    }catch(e){
+      RPCResponse<List<dynamic>>(null, error: e.toString());
+    }
+    return null;
   }
 
   Transaction _callTransac({DeployedContract? contract, 

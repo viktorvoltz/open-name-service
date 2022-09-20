@@ -6,15 +6,16 @@ import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
 
+import '../constants/node_api.dart';
 import '../exceptions/rpc_response.dart';
 import '../constants/constants.dart';
 import 'ethereum_credentials.dart';
 
 class DomainContract {
   static const String _rpcUrl =
-      'https://polygon-mumbai.g.alchemy.com/v2/l2pS-xYjoSCsYuAssq8YcXX__H-xx4Ae';
+      'https://polygon-mumbai.g.alchemy.com/v2/$rpc_api';
   static const String _wsUrl =
-      'wss://polygon-mumbai.g.alchemy.com/v2/l2pS-xYjoSCsYuAssq8YcXX__H-xx4Ae';
+      'wss://polygon-mumbai.g.alchemy.com/v2/$wss_api';
 
   late Web3Client _client;
 

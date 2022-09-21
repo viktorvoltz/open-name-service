@@ -1,9 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:walletconnect_dart/walletconnect_dart.dart';
 
 import 'ethereum_credentials.dart';
 
-class WalletConnectService {
+class WalletConnectService extends ChangeNotifier {
+
+  bool _isConnected = false;
+  String _account = '';
+
+  bool get isConnected => _isConnected;
+  String get account => _account;
+
   final connector = WalletConnect(
     bridge: 'https://bridge.walletconnect.org',
     clientMeta: const PeerMeta(
@@ -56,15 +64,20 @@ class WalletConnectService {
     } else {
       connector.reconnect();
     }
+    _isConnected = true;
+    notifyListeners();
     walletProvider();
   }
 
   String getAccount(){
+    _account = sessionStatus.accounts[0];
+    notifyListeners();
+    print(_account);
     return sessionStatus.accounts[0];
   }
 
   void walletProvider(){
-    EthereumWalletConnectProvider provider = EthereumWalletConnectProvider(connector);
+    EthereumWalletConnectProvider provider = EthereumWalletConnectProvider(connector, chainId: 80001);
     WalletConnectEthereumCredentials(provider: provider);
   }
 }

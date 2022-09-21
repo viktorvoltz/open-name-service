@@ -32,7 +32,7 @@ class DomainContract {
     final jsonCode = jsonDecode(contractAbi);
     final abiCode = jsonEncode(jsonCode["abi"]);
 
-    /// deployed contract address
+    /// deployed smart contract address
     _contractAddress =
         EthereumAddress.fromHex("0x8c328B7f4856438FbeAa59f9e28F6fDd98B4588d");
 

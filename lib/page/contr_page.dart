@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:webthreeauth/globals/custom_button.dart';
 import 'package:webthreeauth/service_locator.dart';
 
@@ -25,21 +26,23 @@ class _ContractPageState extends State<ContractPage> {
 
   @override
   Widget build(BuildContext context) {
+    final wcs = Provider.of<WalletConnectService>(context);
     return Scaffold(
       body: Center(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(account),
+              Text(wcs.account),
               const SizedBox(height: 20),
               CustomButton(
                 color: Colors.green,
-                text: "Connect Wallet",
-                onPressed: () async {
-                  await locator.get<WalletConnectService>().connect();
-                  account = locator.get<WalletConnectService>().getAccount();
-                  setState(() {});
+                text: wcs.isConnected ? "connected" : "Connect Wallet",
+                onPressed: wcs.isConnected ? null : () async {
+                  //await locator.get<WalletConnectService>().connect();
+                  await wcs.connect();
+                  //account = locator.get<WalletConnectService>().getAccount();
+                  wcs.getAccount();
               }),
               const SizedBox(height: 30,),
               CustomButton(

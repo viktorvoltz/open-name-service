@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/single_child_widget.dart';
 import 'package:webthreeauth/page/contr_page.dart';
+import 'package:webthreeauth/repo/wallet_connect_service.dart';
 import 'package:webthreeauth/service_locator.dart';
+import 'package:provider/provider.dart';
 
 import 'page/home_page.dart';
 import 'globals/global_key.dart';
 
 void main() {
   setup();
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: <SingleChildWidget>[ChangeNotifierProvider(create: (_) => WalletConnectService())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -26,4 +34,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

@@ -6,11 +6,11 @@ import 'package:flutter/services.dart';
 
 class CustomButton extends StatefulWidget {
   final String? text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color? color;
 
   const CustomButton(
-      {Key? key, this.text, required this.onPressed, this.color})
+      {Key? key, this.text, this.onPressed, this.color})
       : super(key: key);
 
   @override

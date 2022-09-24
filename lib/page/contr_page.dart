@@ -14,13 +14,25 @@ class ContractPage extends StatefulWidget {
 }
 
 class _ContractPageState extends State<ContractPage> {
+  final TextEditingController _nameController = TextEditingController();
 
   String account = '';
 
   @override
   void dispose() {
     locator.get<DomainContract>().dispose();
+    _nameController.dispose();
     super.dispose();
+  }
+
+  String? get _errorText {
+    final text = _nameController.value.text;
+
+    if (text.isEmpty) {
+      return 'field is empty';
+    }
+
+    return null;
   }
 
 
@@ -45,12 +57,33 @@ class _ContractPageState extends State<ContractPage> {
                   wcs.getAccount();
               }),
               const SizedBox(height: 30,),
-              CustomButton(
-                color: Colors.green,
-                text: "register domain name",
-                onPressed: () async{
-                  await locator.get<DomainContract>().registerDomain("victor-XX345");
-              })
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 200,
+                      child: TextField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                      hintText: 'Register a domain 🚀',
+                      errorText: _errorText,
+                ),
+              ),
+                    ),
+                  ),
+                  Container(
+                    width: 100,
+                    child: CustomButton(
+                      color: Colors.green,
+                      text: "register domain name",
+                      onPressed: () async{
+                        await locator.get<DomainContract>().registerDomain(_nameController.text);
+                    }),
+                  ),
+                ],
+              )
             ]
           ),
       ),

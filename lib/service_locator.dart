@@ -6,7 +6,7 @@ import 'repo/wallet_connect_service.dart';
 
 final locator = GetIt.instance;
 
-void setup(){
+void setup(){ 
   locator.registerLazySingleton<NetworkConnectivityImpl>(() => NetworkConnectivityImpl.instance);
   locator.registerLazySingleton<WalletConnectService>(() => WalletConnectService());
   locator.registerLazySingleton<DomainContract>(() => DomainContract());

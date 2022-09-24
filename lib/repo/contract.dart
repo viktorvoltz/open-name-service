@@ -92,7 +92,7 @@ class DomainContract {
       TransactionReceipt? txReciept =
           await _client.getTransactionReceipt(result);
       print(txReciept.toString());*/
-      RPCResponse<String>('${args[0]} Domain has been registered 🎉', error: null);
+      RPCResponse<String>('${args[0]} domain has been registered 🎉', error: null);
       return result;
     } catch (e) {
       RPCResponse<String>(null, error: e.toString());

@@ -8,11 +8,12 @@ class RPCResponse<T> {
   String? error;
 
   RPCResponse(this.data, {this.error}) : succeed = error == null {
+    late final SnackBar snackBar;
     if (!succeed) {
-      final SnackBar snackBar = SnackBar(content: Text(error!));
+      snackBar = SnackBar(content: Text(error!));
       snackbarKey.currentState?.showSnackBar(snackBar);
     } else {
-      final SnackBar snackBar = SnackBar(content: Text(data.toString()));
+      snackBar = SnackBar(content: Text(data.toString()));
       snackbarKey.currentState?.showSnackBar(snackBar);
     }
   }

@@ -52,9 +52,7 @@ class _ContractPageState extends State<ContractPage> {
                   onPressed: wcs.isConnected
                       ? null
                       : () async {
-                          //await locator.get<WalletConnectService>().connect();
                           await wcs.connect();
-                          //account = locator.get<WalletConnectService>().getAccount();
                           wcs.getAccount();
                         }),
               const SizedBox(

@@ -103,7 +103,7 @@ class _ContractPageState extends State<ContractPage> {
                     child: SizedBox(
                       width: 200,
                       child: TextField(
-                        controller: _nameController,
+                        controller: _address,
                         decoration: const InputDecoration(
                           hintText: 'check address',
                         ),
@@ -118,7 +118,7 @@ class _ContractPageState extends State<ContractPage> {
                         onPressed: () async {
                           final t = await locator
                               .get<DomainContract>()
-                              .getAddress(_nameController.text);
+                              .getAddress(_address.text);
                           print(t);
                         }),
                   ),

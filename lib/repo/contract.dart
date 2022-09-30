@@ -14,8 +14,7 @@ import 'ethereum_credentials.dart';
 class DomainContract {
   static const String _rpcUrl =
       'https://polygon-mumbai.g.alchemy.com/v2/$rpc_api';
-  static const String _wsUrl =
-      'wss://polygon-mumbai.g.alchemy.com/v2/$wss_api';
+  static const String _wsUrl = 'wss://polygon-mumbai.g.alchemy.com/v2/$wss_api';
 
   late Web3Client _client;
 
@@ -47,20 +46,28 @@ class DomainContract {
       String functionName, List<dynamic> args) async {
     final contract = await deployedContract();
     final contractFunction = contract.function(functionName);
-    try{
-    final result = await _client.call(
-        contract: contract, function: contractFunction, params: args);
-        return result;
-    }catch(e){
+    try {
+      final result = await _client.call(
+          contract: contract, function: contractFunction, params: args);
+      return result;
+    } catch (e) {
       RPCResponse<List<dynamic>>(null, error: e.toString());
     }
     return null;
   }
 
-  Transaction _callTransac({DeployedContract? contract, 
-  EthereumAddress? from, ContractFunction? function, List<dynamic>? 
-  parameters, EtherAmount? value}){
-    final tx = Transaction.callContract(contract: contract!, function: function!, parameters: parameters!, value: value, from: from);
+  Transaction _callTransac(
+      {DeployedContract? contract,
+      EthereumAddress? from,
+      ContractFunction? function,
+      List<dynamic>? parameters,
+      EtherAmount? value}) {
+    final tx = Transaction.callContract(
+        contract: contract!,
+        function: function!,
+        parameters: parameters!,
+        value: value,
+        from: from);
     WalletConnectEthereumCredentials.ethCredInstance.sendTransaction(tx);
     return tx;
   }
@@ -92,7 +99,8 @@ class DomainContract {
       TransactionReceipt? txReciept =
           await _client.getTransactionReceipt(result);
       print(txReciept.toString());*/
-      RPCResponse<String>('${args[0]}.voltz domain has been registered 🎉', error: null);
+      RPCResponse<String>('${args[0]}.voltz domain has been registered 🎉',
+          error: null);
       return result;
     } catch (e) {
       RPCResponse<String>(null, error: e.toString());

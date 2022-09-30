@@ -33,7 +33,7 @@ class _CustomButtonState extends State<CustomButton> {
         return MaterialButton(
           color: widget.color,
           onPressed: widget.onPressed,
-          child: Text(widget.text!),
+          child: Text(widget.text!, style: const TextStyle(color: Colors.white)),
         );
       case "ios":
         return CupertinoButton(

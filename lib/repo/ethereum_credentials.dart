@@ -4,20 +4,22 @@ import 'package:web3dart/web3dart.dart';
 
 import 'dart:typed_data';
 
+import '../exceptions/rpc_response.dart';
 
 class WalletConnectEthereumCredentials extends CustomTransactionSender {
-
-  static final WalletConnectEthereumCredentials _ethCredInstance = WalletConnectEthereumCredentials._internal();
+  static final WalletConnectEthereumCredentials _ethCredInstance =
+      WalletConnectEthereumCredentials._internal();
 
   EthereumWalletConnectProvider? provider;
 
-  factory WalletConnectEthereumCredentials({EthereumWalletConnectProvider? provider}){
+  factory WalletConnectEthereumCredentials(
+      {EthereumWalletConnectProvider? provider}) {
     _ethCredInstance.provider = provider;
     return _ethCredInstance;
   }
 
-  static WalletConnectEthereumCredentials get ethCredInstance => _ethCredInstance; 
-  
+  static WalletConnectEthereumCredentials get ethCredInstance =>
+      _ethCredInstance;
 
   WalletConnectEthereumCredentials._internal();
 
@@ -29,6 +31,10 @@ class WalletConnectEthereumCredentials extends CustomTransactionSender {
 
   @override
   Future<String> sendTransaction(Transaction transaction) async {
+    if (provider == null) {
+      RPCResponse<String>(null, error: "Wallet not Connected");
+      return 'wallet not connected';
+    }else {
     final hash = await provider!.sendTransaction(
       from: transaction.from!.hex,
       to: transaction.to?.hex,
@@ -40,8 +46,9 @@ class WalletConnectEthereumCredentials extends CustomTransactionSender {
     );
     print(hash);
     return hash;
+    }
   }
-  
+
   @override
   Future<MsgSignature> signToSignature(Uint8List payload,
       {int? chainId, bool isEIP1559 = false}) {

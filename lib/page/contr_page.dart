@@ -47,6 +47,8 @@ class _ContractPageState extends State<ContractPage> {
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Text("Register a .voltz domain for 0.1 MATIC"),
+                const SizedBox(height: 10,),
                 Text(wcs.account),
                 const SizedBox(height: 20),
                 CustomButton(

@@ -91,7 +91,9 @@ class _ContractPageState extends State<ContractPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.min,
@@ -114,9 +116,10 @@ class _ContractPageState extends State<ContractPage> {
                         color: Colors.black,
                         text: "get Address",
                         onPressed: () async {
-                          await locator
+                          final t = await locator
                               .get<DomainContract>()
                               .getAddress(_nameController.text);
+                          print(t);
                         }),
                   ),
                 ],

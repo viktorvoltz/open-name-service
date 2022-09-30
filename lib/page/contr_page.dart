@@ -15,6 +15,7 @@ class ContractPage extends StatefulWidget {
 
 class _ContractPageState extends State<ContractPage> {
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _address = TextEditingController();
 
   String account = '';
 
@@ -22,6 +23,7 @@ class _ContractPageState extends State<ContractPage> {
   void dispose() {
     locator.get<DomainContract>().dispose();
     _nameController.dispose();
+    _address.dispose();
     super.dispose();
   }
 
@@ -47,7 +49,7 @@ class _ContractPageState extends State<ContractPage> {
               Text(wcs.account),
               const SizedBox(height: 20),
               CustomButton(
-                  color: Colors.green,
+                  color: Colors.black,
                   text: wcs.isConnected ? "connected" : "Connect Wallet",
                   onPressed: wcs.isConnected
                       ? null
@@ -79,12 +81,42 @@ class _ContractPageState extends State<ContractPage> {
                   SizedBox(
                     //width: 100,
                     child: CustomButton(
-                        color: Colors.green,
+                        color: Colors.black,
                         text: "register",
                         onPressed: () async {
                           await locator
                               .get<DomainContract>()
                               .registerDomain(_nameController.text);
+                        }),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 200,
+                      child: TextField(
+                        controller: _nameController,
+                        decoration: const InputDecoration(
+                          hintText: 'check address',
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    //width: 100,
+                    child: CustomButton(
+                        color: Colors.black,
+                        text: "get Address",
+                        onPressed: () async {
+                          await locator
+                              .get<DomainContract>()
+                              .getAddress(_nameController.text);
                         }),
                   ),
                 ],

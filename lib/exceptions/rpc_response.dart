@@ -8,6 +8,7 @@ class RPCResponse<T> {
   String? error;
 
   RPCResponse(this.data, {this.error}) : succeed = error == null {
+    snackbarKey.currentState?.removeCurrentSnackBar();
     late final SnackBar snackBar;
     if (!succeed) {
       snackBar = SnackBar(content: Text(error!));

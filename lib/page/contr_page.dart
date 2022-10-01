@@ -41,97 +41,102 @@ class _ContractPageState extends State<ContractPage> {
   Widget build(BuildContext context) {
     final wcs = Provider.of<WalletConnectService>(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
-        minimum: const EdgeInsets.only(top: 40),
+        minimum: const EdgeInsets.only(top: 40, left: 10, right: 10),
         child: Center(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const Text("Register a .voltz domain for 0.1 MATIC"),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(wcs.account),
+            const SizedBox(height: 20),
+            CustomButton(
+                color: Colors.black,
+                text: wcs.isConnected ? "connected" : "Connect Wallet",
+                onPressed: wcs.isConnected
+                    ? null
+                    : () async {
+                        await wcs.connect();
+                        wcs.getAccount();
+                      }),
+            const SizedBox(
+              height: 30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Register a .voltz domain for 0.1 MATIC"),
-                const SizedBox(height: 10,),
-                Text(wcs.account),
-                const SizedBox(height: 20),
-                CustomButton(
-                    color: Colors.black,
-                    text: wcs.isConnected ? "connected" : "Connect Wallet",
-                    onPressed: wcs.isConnected
-                        ? null
-                        : () async {
-                            await wcs.connect();
-                            wcs.getAccount();
-                          }),
-                const SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 200,
-                        child: TextField(
-                          maxLength: 14,
-                          controller: _nameController,
-                          decoration: InputDecoration(
-                            hintText: 'Register a domain 🚀',
-                            errorText: _errorText,
-                          ),
-                        ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 200,
+                    child: TextField(
+                      maxLength: 14,
+                      controller: _nameController,
+                      decoration: InputDecoration(
+                        hintText: 'Register a domain 🚀',
+                        errorText: _errorText,
                       ),
                     ),
-                    SizedBox(
-                      child: CustomButton(
-                          color: Colors.black,
-                          text: "register",
-                          onPressed: () async {
-                            await locator
-                                .get<DomainContract>()
-                                .registerDomain(_nameController.text);
-                          }),
-                    ),
-                  ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  child: CustomButton(
+                      color: Colors.black,
+                      text: "register",
+                      onPressed: () async {
+                        await locator
+                            .get<DomainContract>()
+                            .registerDomain(_nameController.text);
+                      }),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 200,
-                        child: TextField(
-                          controller: _address,
-                          decoration: const InputDecoration(
-                            hintText: 'check domain, E.g `john`',
-                          ),
-                        ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 200,
+                    child: TextField(
+                      controller: _address,
+                      decoration: const InputDecoration(
+                        hintText: 'check domain, E.g `john`',
                       ),
                     ),
-                    SizedBox(
-                      //width: 100,
-                      child: CustomButton(
-                          color: Colors.black,
-                          text: "get Address",
-                          onPressed: () async {
-                            domainAddress = await locator
-                                .get<DomainContract>()
-                                .getAddress(_address.text);
-                            print(domainAddress);
-                          }),
-                    ),
-                  ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  //width: 100,
+                  child: CustomButton(
+                      color: Colors.black,
+                      text: "get Address",
+                      onPressed: () async {
+                        domainAddress = await locator
+                            .get<DomainContract>()
+                            .getAddress(_address.text);
+                        setState(() {});
+                      }),
                 ),
-                const Text('.voltz domain owner:'),
-                domainAddress == null ? Container() : Text('${_address.text}.voltz is owned by ${domainAddress[0]}')
-              ]),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text('(.)voltz domain owner:'),
+            const SizedBox(height: 10,),
+            domainAddress == null
+                ? Container()
+                : Text(domainAddress[0].toString().contains('0x0000000000')
+                    ? '${_address.text} is unregistered yet'
+                    : '${_address.text}.voltz is owned by\n ${domainAddress[0]}')
+          ]),
         ),
       ),
     );

@@ -17,7 +17,7 @@ class _ContractPageState extends State<ContractPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _address = TextEditingController();
 
-  String account = '';
+  dynamic? domainAddress;
 
   @override
   void dispose() {
@@ -118,14 +118,19 @@ class _ContractPageState extends State<ContractPage> {
                           color: Colors.black,
                           text: "get Address",
                           onPressed: () async {
-                            final t = await locator
+                            domainAddress = await locator
                                 .get<DomainContract>()
                                 .getAddress(_address.text);
-                            print(t);
+                            print(domainAddress);
                           }),
                     ),
                   ],
-                )
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text('.voltz domain owner:'),
+                domainAddress == null ? Container() : Text('${_address.text}.voltz is owned by ${domainAddress[0]}')
               ]),
         ),
       ),

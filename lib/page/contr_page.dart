@@ -27,7 +27,7 @@ class _ContractPageState extends State<ContractPage> {
     super.dispose();
   }
 
-  String? get _errorText {
+  /*String? get _errorText {
     final text = _nameController.value.text;
 
     if (text.isEmpty) {
@@ -35,7 +35,7 @@ class _ContractPageState extends State<ContractPage> {
     }
 
     return null;
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +75,8 @@ class _ContractPageState extends State<ContractPage> {
                     child: TextField(
                       maxLength: 14,
                       controller: _nameController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Register a domain 🚀',
-                        errorText: _errorText,
                       ),
                     ),
                   ),

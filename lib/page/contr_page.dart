@@ -135,7 +135,7 @@ class _ContractPageState extends State<ContractPage> {
                 ? Container()
                 : Text(domainAddress[0].toString().contains('0x0000000000')
                     ? '${_address.text} is unregistered yet'
-                    : '${_address.text}.voltz is owned by\n ${domainAddress[0]}')
+                    : '${_address.text}.voltz is owned by\n${domainAddress[0]}')
           ]),
         ),
       ),

@@ -120,7 +120,6 @@ class _ContractPageState extends State<ContractPage> {
                         color: Colors.black,
                         text: "get Address",
                         onPressed: () async {
-                          _address.clear();
                           domainAddress = await locator
                               .get<DomainContract>()
                               .getAddress(_address.text);

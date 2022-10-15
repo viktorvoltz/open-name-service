@@ -17,8 +17,8 @@ both the smart contract and dApp are completely open-source, sou you can verify 
 - dApp: [dApp](https://github.com/viktorvoltz/open-name-service)
 
 ## install/requirements
-install APK from `releases`.
-metamask or any other wallet is needed for connection with dApp.
+- install APK from `releases`.
+- metamask or any other wallet is needed for connection with dApp.
 
 ## minted domains (open sea)
 [voltz domains](https://testnets.opensea.io/collection/voltz-domains)

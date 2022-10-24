@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:webthreeauth/page/contr_page.dart';
 import 'package:webthreeauth/repo/wallet_connect_service.dart';
-import 'package:webthreeauth/service_locator.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import 'page/home_page.dart';
 import 'globals/global_key.dart';
+import 'page/contr_page.dart';
+import 'service_locator.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

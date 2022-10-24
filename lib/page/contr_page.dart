@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:webthreeauth/globals/custom_button.dart';
-import 'package:webthreeauth/service_locator.dart';
 
 import '../repo/contract.dart';
 import '../repo/wallet_connect_service.dart';
 import 'collection_web_view.dart';
+import '../service_locator.dart';
+import '../globals/custom_button.dart';
 
 class ContractPage extends StatefulWidget {
   const ContractPage({Key? key}) : super(key: key);

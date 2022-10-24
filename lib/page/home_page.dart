@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:webthreeauth/globals/connectivity_listener.dart';
-import 'package:webthreeauth/service_locator.dart';
 
+import '../service_locator.dart';
+import '../globals/connectivity_listener.dart';
 import '../repo/conectivity_status.dart';
 import 'contr_page.dart';
 

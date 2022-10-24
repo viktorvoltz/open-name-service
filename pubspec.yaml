@@ -1,5 +1,5 @@
-name: webthreeauth
-description: A new Flutter project.
+name: open_name_service
+description: dApp for registering domain names on polygon..
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
